@@ -1,5 +1,4 @@
 use clap::Parser;
-// use structopt::StructOpt;
 use url::Url;
 
 #[derive(Parser, Debug)]

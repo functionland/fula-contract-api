@@ -4,54 +4,32 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-env_logger = "0.10.0"
 clap = { version = "4.3.0", features = ["derive"] }
-rand = "0.8.5"
-hex = "0.4.3"
-futures = "0.3"
-crossbeam = "0.8"
+url = { version = "2", features = ["serde"] }
+env_logger = "0.10.0"
 actix = "0.13"
 actix-web = "4.3"
 actix-web-actors = "4.2"
 actix-cors = "0.6.4"
 serde = { version = "1.0", features = ["derive"] }
 contract-integration = { git = "https://github.com/SugarFunge/contract-integration", branch = "master", default-features = false }
-unicode-xid = "0.2.3"
 serde_json = "1.0"
 jsonrpsee-types = "0.18.2"
-url = { version = "2", features = ["serde"] }
 derive_more = { version = "0.99.17", default-features = false }
 codec = { package = "parity-scale-codec", version = "3.2.2", default-features = false, features = ["derive", "full", "bit-vec"] }
 scale-info = { version = "2.5.0", features = ["bit-vec"] }
-dotenv = "0.15.0"
 
 [dependencies.subxt]
 git = "https://github.com/SugarFunge/subxt.git"
 branch = "feature/polkadot-v0.9.42"
-
-[dependencies.sp-keyring]
-git = "https://github.com/paritytech/substrate.git"
-branch = "polkadot-v0.9.42"
-package = "sp-keyring"
 
 [dependencies.sp-std]
 git = "https://github.com/paritytech/substrate.git"
 branch = "polkadot-v0.9.42"
 package = "sp-std"
 
-[dependencies.sp-io]
-git = "https://github.com/paritytech/substrate.git"
-branch = "polkadot-v0.9.42"
-package = "sp-io"
-features = []
-
 [dependencies.sp-core]
 git = "https://github.com/paritytech/substrate.git"
 branch = "polkadot-v0.9.42"
 package = "sp-core"
 features = ["full_crypto"]
-
-[dependencies.sp-runtime]
-git = "https://github.com/paritytech/substrate.git"
-branch = "polkadot-v0.9.42"
-package = "sp-runtime"
