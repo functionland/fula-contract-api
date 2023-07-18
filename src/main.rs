@@ -45,33 +45,35 @@ async fn main() -> std::io::Result<()> {
             .wrap(middleware::Logger::default())
             .wrap(cors)
             .app_data(Data::new(state.clone()))
+            .route("health", web::post().to(util::health_check))
             .route(
-                "fula/contract/mint",
-                web::post().to(contract::contract_mint_to),
+                "goerli/mint",
+                web::post().to(contract::goerli_contract_mint_to),
             )
             .route(
-                "fula/contract/supply",
+                "goerli/supply",
                 web::post().to(contract::contract_total_supply),
             )
             .route(
-                "fula/contract/allowance",
+                "goerli/allowance",
                 web::post().to(contract::contract_allowance),
             )
             .route(
-                "fula/contract/increase_allowance",
+                "goerli/increase_allowance",
                 web::post().to(contract::contract_increase_allowance),
             )
             .route(
-                "fula/contract/decrease_allowance",
+                "goerli/decrease_allowance",
                 web::post().to(contract::contract_decrease_allowance),
             )
+            .route("goerli/burn", web::post().to(contract::contract_burn_from))
             .route(
-                "fula/contract/burn",
-                web::post().to(contract::contract_burn_from),
+                "goerli/transfer",
+                web::post().to(contract::contract_transfer),
             )
             .route(
-                "fula/contract/transfer",
-                web::post().to(contract::contract_transfer),
+                "mumbai/mint",
+                web::post().to(contract::mumbai_contract_mint_to),
             )
     })
     .bind((args.listen.host_str().unwrap(), args.listen.port().unwrap()))?

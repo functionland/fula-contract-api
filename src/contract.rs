@@ -5,10 +5,23 @@ use contract_integration::calls::*;
 use serde_json::json;
 use sp_core::U256;
 
-pub async fn contract_mint_to(
+pub async fn goerli_contract_mint_to(
     req: web::Json<ContractTransactionInput>,
 ) -> error::Result<HttpResponse> {
     let result = goerli_mint_to(req.account_address.as_str(), U256::from(req.amount)).await;
+    match result {
+        Ok(event) => Ok(HttpResponse::Ok().json(event)),
+        Err(_) => Ok(HttpResponse::BadRequest().json(RequestError {
+            message: json!("Failed to execute the contract_event::MintTo"),
+            description: format!(""),
+        })),
+    }
+}
+
+pub async fn mumbai_contract_mint_to(
+    req: web::Json<ContractTransactionInput>,
+) -> error::Result<HttpResponse> {
+    let result = mumbai_mint_to(req.account_address.as_str(), U256::from(req.amount)).await;
     match result {
         Ok(event) => Ok(HttpResponse::Ok().json(event)),
         Err(_) => Ok(HttpResponse::BadRequest().json(RequestError {
