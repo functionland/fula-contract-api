@@ -52,28 +52,55 @@ async fn main() -> std::io::Result<()> {
             )
             .route(
                 "goerli/supply",
-                web::post().to(contract::contract_total_supply),
+                web::post().to(contract::goerli_contract_total_supply),
             )
             .route(
                 "goerli/allowance",
-                web::post().to(contract::contract_allowance),
+                web::post().to(contract::goerli_contract_allowance),
             )
             .route(
                 "goerli/increase_allowance",
-                web::post().to(contract::contract_increase_allowance),
+                web::post().to(contract::goerli_contract_increase_allowance),
             )
             .route(
                 "goerli/decrease_allowance",
-                web::post().to(contract::contract_decrease_allowance),
+                web::post().to(contract::goerli_contract_decrease_allowance),
             )
-            .route("goerli/burn", web::post().to(contract::contract_burn_from))
+            .route(
+                "goerli/burn",
+                web::post().to(contract::goerli_contract_burn_from),
+            )
             .route(
                 "goerli/transfer",
-                web::post().to(contract::contract_transfer),
+                web::post().to(contract::goerli_contract_transfer),
             )
             .route(
                 "mumbai/mint",
                 web::post().to(contract::mumbai_contract_mint_to),
+            )
+            .route(
+                "mumbai/supply",
+                web::post().to(contract::mumbai_contract_total_supply),
+            )
+            .route(
+                "mumbai/allowance",
+                web::post().to(contract::mumbai_contract_allowance),
+            )
+            .route(
+                "mumbai/increase_allowance",
+                web::post().to(contract::mumbai_contract_increase_allowance),
+            )
+            .route(
+                "mumbai/decrease_allowance",
+                web::post().to(contract::mumbai_contract_decrease_allowance),
+            )
+            .route(
+                "mumbai/burn",
+                web::post().to(contract::mumbai_contract_burn_from),
+            )
+            .route(
+                "mumbai/transfer",
+                web::post().to(contract::mumbai_contract_transfer),
             )
     })
     .bind((args.listen.host_str().unwrap(), args.listen.port().unwrap()))?
