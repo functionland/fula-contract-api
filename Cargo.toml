@@ -21,15 +21,15 @@ scale-info = { version = "2.5.0", features = ["bit-vec"] }
 
 [dependencies.subxt]
 git = "https://github.com/SugarFunge/subxt.git"
-branch = "feature/polkadot-v0.9.42"
+branch = "feature/polkadot-v0.9.43"
 
 [dependencies.sp-std]
 git = "https://github.com/paritytech/substrate.git"
-branch = "polkadot-v0.9.42"
+branch = "polkadot-v0.9.43"
 package = "sp-std"
 
 [dependencies.sp-core]
 git = "https://github.com/paritytech/substrate.git"
-branch = "polkadot-v0.9.42"
+branch = "polkadot-v0.9.43"
 package = "sp-core"
 features = ["full_crypto"]
