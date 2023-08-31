@@ -1,19 +1,5 @@
+use contract_api_types::types::Config;
 use std::env;
-
-use serde::{Deserialize, Serialize};
-
-#[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct Config {
-    pub yearly_tokens: u64,
-    pub labor_token_class_id: u64,
-    pub labor_token_asset_id: u64,
-    pub challenge_token_class_id: u64,
-    pub challenge_token_asset_id: u64,
-    pub cycles_advance: u16,
-    pub cycles_reset: u16,
-    pub year_to_hours: u64,
-    pub hour_to_miliseconds: u64,
-}
 
 pub fn init() -> Config {
     let panic_message: String = "enviroment variable is not set".to_string();
@@ -47,13 +33,13 @@ pub fn init() -> Config {
             Ok(var) => var.parse::<u16>().unwrap(),
             Err(_) => panic!("NUMBER_CYCLES_TO_RESET {}", panic_message),
         },
-        year_to_hours: match env::var("YEAR_TO_HOURS") {
+        total_cyles: match env::var("TOTAL_CYCLES") {
             Ok(var) => var.parse::<u64>().unwrap(),
-            Err(_) => panic!("YEAR_TO_HOURS {}", panic_message),
+            Err(_) => panic!("TOTAL_CYCLES {}", panic_message),
         },
-        hour_to_miliseconds: match env::var("HOUR_TO_MILISECONDS") {
+        time_between_cycles_miliseconds: match env::var("TIME_BETWEEN_CYLCES_MILISECONDS") {
             Ok(var) => var.parse::<u64>().unwrap(),
-            Err(_) => panic!("HOUR_TO_MILISECONDS {}", panic_message),
+            Err(_) => panic!("TIME_BETWEEN_CYLCES_MILISECONDS {}", panic_message),
         },
     }
 }

@@ -3,7 +3,11 @@ name = "functionland-contract-api"
 version = "0.1.0"
 edition = "2021"
 
+[workspace]
+members = ["crates/*"]
+
 [dependencies]
+contract-api-types = { path = "crates/contract-api-types" }
 dotenv = "0.15.0"
 clap = { version = "4.3.0", features = ["derive"] }
 url = { version = "2", features = ["serde"] }
