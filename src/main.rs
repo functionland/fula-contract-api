@@ -8,6 +8,7 @@ use args::*;
 use clap::Parser;
 
 mod args;
+mod config;
 mod contract;
 mod types;
 mod util;
@@ -89,6 +90,7 @@ async fn main() -> std::io::Result<()> {
                 "mumbai/transfer",
                 web::post().to(contract::mumbai_contract_transfer),
             )
+            .route("setup", web::post().to(contract::setup))
     })
     .bind((args.listen.host_str().unwrap(), args.listen.port().unwrap()))?
     .run()

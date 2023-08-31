@@ -1855,6 +1855,7 @@ dependencies = [
  "clap",
  "contract-integration",
  "derive_more",
+ "dotenv",
  "env_logger",
  "jsonrpsee-types 0.18.2",
  "parity-scale-codec",
