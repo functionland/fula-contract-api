@@ -1,7 +1,9 @@
+use crate::config;
 use crate::types::*;
 use crate::util::*;
 use actix_web::{error, web, HttpResponse};
 use contract_integration::calls::*;
+use dotenv::dotenv;
 use serde_json::json;
 use sp_core::U256;
 
@@ -205,4 +207,11 @@ pub async fn mumbai_contract_decrease_allowance(
             description: format!(""),
         })),
     }
+}
+
+pub async fn setup() -> error::Result<HttpResponse> {
+    dotenv().ok();
+    let env = config::init();
+
+    Ok(HttpResponse::Ok().json(env))
 }

@@ -1,19 +1,15 @@
 use actix_cors::Cors;
 use actix_web::{
     http, middleware,
-    web::{self, Data},
+    web::{self},
     App, HttpServer,
 };
 use args::*;
 use clap::Parser;
-use state::*;
-use std::sync::Arc;
-use subxt::{client::OnlineClient, PolkadotConfig};
-use util::url_to_string;
 
 mod args;
+mod config;
 mod contract;
-mod state;
 mod types;
 mod util;
 
@@ -22,12 +18,6 @@ async fn main() -> std::io::Result<()> {
     env_logger::init_from_env(env_logger::Env::new().default_filter_or("info"));
 
     let args = Args::parse();
-
-    let api = OnlineClient::<PolkadotConfig>::from_url(url_to_string(args.node_server))
-        .await
-        .map_err(|e| std::io::Error::new(std::io::ErrorKind::Other, e.to_string()))?;
-
-    let state = AppState { api: Arc::new(api) };
 
     HttpServer::new(move || {
         let cors = Cors::default()
@@ -44,8 +34,6 @@ async fn main() -> std::io::Result<()> {
             .wrap(middleware::Compress::default())
             .wrap(middleware::Logger::default())
             .wrap(cors)
-            .app_data(Data::new(state.clone()))
-            .route("health", web::post().to(util::health_check))
             .route(
                 "goerli/mint",
                 web::post().to(contract::goerli_contract_mint_to),
@@ -102,6 +90,7 @@ async fn main() -> std::io::Result<()> {
                 "mumbai/transfer",
                 web::post().to(contract::mumbai_contract_transfer),
             )
+            .route("setup", web::post().to(contract::setup))
     })
     .bind((args.listen.host_str().unwrap(), args.listen.port().unwrap()))?
     .run()
