@@ -91,6 +91,7 @@ async fn main() -> std::io::Result<()> {
                 web::post().to(contract::mumbai_contract_transfer),
             )
             .route("setup", web::post().to(contract::setup))
+            .route("refund", web::post().to(contract::refund))
     })
     .bind((args.listen.host_str().unwrap(), args.listen.port().unwrap()))?
     .run()

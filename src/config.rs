@@ -1,4 +1,4 @@
-use contract_api_types::types::Config;
+use contract_api_types::types::{Config, Refund};
 use std::env;
 
 pub fn init() -> Config {
@@ -40,6 +40,21 @@ pub fn init() -> Config {
         time_between_cycles_miliseconds: match env::var("TIME_BETWEEN_CYLCES_MILISECONDS") {
             Ok(var) => var.parse::<u64>().unwrap(),
             Err(_) => panic!("TIME_BETWEEN_CYLCES_MILISECONDS {}", panic_message),
+        },
+    }
+}
+
+pub fn refund() -> Refund {
+    let panic_message: String = "enviroment variable is not set".to_string();
+
+    Refund {
+        seed: match env::var("VALIDATOR_SEED") {
+            Ok(var) => var.parse::<String>().unwrap(),
+            Err(_) => panic!("VALIDATOR_SEED {}", panic_message),
+        },
+        amount: match env::var("REFUND_AMOUNT") {
+            Ok(var) => var.parse::<u128>().unwrap(),
+            Err(_) => panic!("REFUND_AMOUNT {}", panic_message),
         },
     }
 }

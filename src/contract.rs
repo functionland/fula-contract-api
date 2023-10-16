@@ -215,3 +215,10 @@ pub async fn setup() -> error::Result<HttpResponse> {
 
     Ok(HttpResponse::Ok().json(env))
 }
+
+pub async fn refund() -> error::Result<HttpResponse> {
+    dotenv().ok();
+    let env = config::refund();
+
+    Ok(HttpResponse::Ok().json(env))
+}
