@@ -12,3 +12,9 @@ pub struct Config {
     pub total_cyles: u64,
     pub time_between_cycles_miliseconds: u64,
 }
+
+#[derive(Serialize, Deserialize, Clone, Debug)]
+pub struct Refund {
+    pub seed: String,
+    pub amount: u128,
+}
