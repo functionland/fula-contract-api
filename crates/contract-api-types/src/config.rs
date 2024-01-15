@@ -14,7 +14,8 @@ pub struct Config {
 }
 
 #[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct Refund {
+pub struct Call {
+    pub fula_sugarfunge_api_host: String,
     pub seed: String,
     pub amount: u128,
 }

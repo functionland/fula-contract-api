@@ -1,7 +1,7 @@
-use contract_api_types::types::{Config, Refund};
+use contract_api_types::config::{Call, Config};
 use std::env;
 
-pub fn init() -> Config {
+pub fn config_init() -> Config {
     let panic_message: String = "enviroment variable is not set".to_string();
 
     Config {
@@ -44,13 +44,17 @@ pub fn init() -> Config {
     }
 }
 
-pub fn refund() -> Refund {
+pub fn call_init() -> Call {
     let panic_message: String = "enviroment variable is not set".to_string();
 
-    Refund {
+    Call {
         seed: match env::var("VALIDATOR_SEED") {
             Ok(var) => var.parse::<String>().unwrap(),
             Err(_) => panic!("VALIDATOR_SEED {}", panic_message),
+        },
+        fula_sugarfunge_api_host: match env::var("FULA_SUGARFUNGE_API_HOST") {
+            Ok(var) => var,
+            Err(_) => panic!("FULA_SUGARFUNGE_API_HOST {}", panic_message),
         },
         amount: match env::var("REFUND_AMOUNT") {
             Ok(var) => var.parse::<u128>().unwrap(),

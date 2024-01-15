@@ -23,6 +23,8 @@ jsonrpsee-types = "0.18.2"
 derive_more = { version = "0.99.17", default-features = false }
 codec = { package = "parity-scale-codec", version = "3.2.2", default-features = false, features = ["derive", "full", "bit-vec"] }
 scale-info = { version = "2.5.0", features = ["bit-vec"] }
+reqwest = { version = "0.11", features = ["json"] }
+sugarfunge-api-types = { git = "https://github.com/functionland/sugarfunge-api.git", rev = "1bbc8b26656d5297a6fc799e473f502e7bb6c99e" }
 
 [dependencies.subxt]
 git = "https://github.com/SugarFunge/subxt.git"
