@@ -7,10 +7,10 @@ use actix_web::{
 use args::*;
 use clap::Parser;
 
+mod api_calls;
 mod args;
 mod config;
 mod contract;
-mod types;
 mod util;
 
 #[actix_web::main]
@@ -90,8 +90,12 @@ async fn main() -> std::io::Result<()> {
                 "mumbai/transfer",
                 web::post().to(contract::mumbai_contract_transfer),
             )
-            .route("setup", web::post().to(contract::setup))
-            .route("refund", web::post().to(contract::refund))
+            .route("setup", web::post().to(api_calls::setup))
+            .route("refund", web::post().to(api_calls::refund))
+            .route(
+                "convert_to_validator",
+                web::post().to(api_calls::convert_to_validator),
+            )
     })
     .bind((args.listen.host_str().unwrap(), args.listen.port().unwrap()))?
     .run()
