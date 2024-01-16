@@ -1,8 +1,10 @@
 use crate::{
     config,
     util::{fula_sugarfunge_req, RequestError},
+    Args,
 };
 use actix_web::{error, web, HttpResponse};
+use clap::Parser;
 use contract_api_types::calls::*;
 use dotenv::dotenv;
 use sugarfunge_api_types::account::{FundAccountInput, FundAccountOutput};
@@ -18,11 +20,12 @@ pub async fn setup() -> error::Result<HttpResponse> {
 }
 
 pub async fn refund(req: web::Json<RefundInput>) -> error::Result<HttpResponse> {
+    let args = Args::parse();
     dotenv().ok();
     let env = config::call_init();
 
     let _ = fund_account(FundAccountInput {
-        seed: env.seed.clone().into(),
+        seed: args.validator_seed.into(),
         to: req.account.clone().into(),
         amount: env.amount.into(),
     })
@@ -37,9 +40,10 @@ pub async fn convert_to_validator(
 ) -> error::Result<HttpResponse> {
     dotenv().ok();
     let env = config::call_init();
+    let args = Args::parse();
 
     let _ = fund_account(FundAccountInput {
-        seed: env.seed.clone().into(),
+        seed: args.validator_seed.clone().into(),
         to: req.aura_account.clone().into(),
         amount: env.amount.into(),
     })
@@ -53,7 +57,7 @@ pub async fn convert_to_validator(
     .await;
 
     let _ = add_validator(AddValidatorInput {
-        seed: env.seed.clone().into(),
+        seed: args.validator_seed.clone().into(),
         validator_id: req.aura_account.clone().into(),
     })
     .await;

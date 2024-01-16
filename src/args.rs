@@ -8,6 +8,8 @@ pub struct Args {
     pub node_server: Url,
     #[arg(short, long, value_parser, default_value = "http://127.0.0.1:4003")]
     pub listen: Url,
+    #[arg(short, long, value_parser)]
+    pub validator_seed: String,
     #[arg(short, long = "db-uri", value_parser)]
     pub db: Option<String>,
 }
