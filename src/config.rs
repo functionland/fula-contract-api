@@ -48,10 +48,6 @@ pub fn call_init() -> Call {
     let panic_message: String = "enviroment variable is not set".to_string();
 
     Call {
-        seed: match env::var("VALIDATOR_SEED") {
-            Ok(var) => var.parse::<String>().unwrap(),
-            Err(_) => panic!("VALIDATOR_SEED {}", panic_message),
-        },
         fula_sugarfunge_api_host: match env::var("FULA_SUGARFUNGE_API_HOST") {
             Ok(var) => var,
             Err(_) => panic!("FULA_SUGARFUNGE_API_HOST {}", panic_message),
