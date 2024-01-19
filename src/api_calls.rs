@@ -7,7 +7,7 @@ use actix_web::{error, web, HttpResponse};
 use clap::Parser;
 use contract_api_types::calls::*;
 use dotenv::dotenv;
-use sugarfunge_api_types::account::{FundAccountInput, FundAccountOutput};
+use sugarfunge_api_types::account::{SetBalanceInput, SetBalanceOutput};
 use sugarfunge_api_types::validator::{
     AddValidatorInput, AddValidatorOutput, SetKeysInput, SetKeysOutput,
 };
@@ -22,12 +22,11 @@ pub async fn setup() -> error::Result<HttpResponse> {
 pub async fn refund(req: web::Json<RefundInput>) -> error::Result<HttpResponse> {
     let args = Args::parse();
     dotenv().ok();
-    let env = config::call_init();
 
-    let _ = fund_account(FundAccountInput {
+    let _ = set_balance(SetBalanceInput {
         seed: args.validator_seed.into(),
         to: req.account.clone().into(),
-        amount: env.amount.into(),
+        amount: req.balance.into(),
     })
     .await;
     Ok(HttpResponse::Ok().json(RefundOutput {
@@ -39,13 +38,13 @@ pub async fn convert_to_validator(
     req: web::Json<ConvertToValidatorInput>,
 ) -> error::Result<HttpResponse> {
     dotenv().ok();
-    let env = config::call_init();
+    let env = config::parameters_init();
     let args = Args::parse();
 
-    let _ = fund_account(FundAccountInput {
+    let _ = set_balance(SetBalanceInput {
         seed: args.validator_seed.clone().into(),
         to: req.aura_account.clone().into(),
-        amount: env.amount.into(),
+        amount: env.initial_balance.into(),
     })
     .await;
 
@@ -79,7 +78,8 @@ async fn add_validator(input: AddValidatorInput) -> Result<AddValidatorOutput, R
     return result;
 }
 
-async fn fund_account(input: FundAccountInput) -> Result<FundAccountOutput, RequestError> {
-    let result: Result<FundAccountOutput, _> = fula_sugarfunge_req("account/fund", input).await;
+async fn set_balance(input: SetBalanceInput) -> Result<SetBalanceOutput, RequestError> {
+    let result: Result<SetBalanceOutput, _> =
+        fula_sugarfunge_req("account/set_balance", input).await;
     return result;
 }

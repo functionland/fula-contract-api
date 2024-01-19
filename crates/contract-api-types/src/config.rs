@@ -14,7 +14,7 @@ pub struct Config {
 }
 
 #[derive(Serialize, Deserialize, Clone, Debug)]
-pub struct Call {
+pub struct Parameters {
     pub fula_sugarfunge_api_host: String,
-    pub amount: u128,
+    pub initial_balance: u128,
 }
