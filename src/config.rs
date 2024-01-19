@@ -1,4 +1,4 @@
-use contract_api_types::config::{Call, Config};
+use contract_api_types::config::{Config, Parameters};
 use std::env;
 
 pub fn config_init() -> Config {
@@ -44,15 +44,15 @@ pub fn config_init() -> Config {
     }
 }
 
-pub fn call_init() -> Call {
+pub fn parameters_init() -> Parameters {
     let panic_message: String = "enviroment variable is not set".to_string();
 
-    Call {
+    Parameters {
         fula_sugarfunge_api_host: match env::var("FULA_SUGARFUNGE_API_HOST") {
             Ok(var) => var,
             Err(_) => panic!("FULA_SUGARFUNGE_API_HOST {}", panic_message),
         },
-        amount: match env::var("REFUND_AMOUNT") {
+        initial_balance: match env::var("INITIAL_BALANCE") {
             Ok(var) => var.parse::<u128>().unwrap(),
             Err(_) => panic!("REFUND_AMOUNT {}", panic_message),
         },

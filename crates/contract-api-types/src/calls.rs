@@ -16,6 +16,7 @@ pub struct ConvertToValidatorOutput {
 #[derive(Serialize, Deserialize, Debug)]
 pub struct RefundInput {
     pub account: String,
+    pub balance: u128,
 }
 
 #[derive(Serialize, Deserialize, Debug)]

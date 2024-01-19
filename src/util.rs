@@ -65,6 +65,6 @@ where
     O: for<'de> Deserialize<'de>,
 {
     dotenv().ok();
-    let env = config::call_init();
+    let env = config::parameters_init();
     req(env.fula_sugarfunge_api_host, cmd, args).await
 }
