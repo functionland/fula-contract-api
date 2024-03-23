@@ -6134,7 +6134,7 @@ dependencies = [
 [[package]]
 name = "sugarfunge-api-types"
 version = "0.1.0"
-source = "git+https://github.com/functionland/sugarfunge-api.git?rev=242dccf9da3982fa0a42c613477614adc7675641#242dccf9da3982fa0a42c613477614adc7675641"
+source = "git+https://github.com/functionland/sugarfunge-api.git?rev=28d9a0da16add1b65942d5e344d8782719360029#28d9a0da16add1b65942d5e344d8782719360029"
 dependencies = [
  "bevy_derive",
  "futures",
