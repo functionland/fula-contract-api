@@ -24,7 +24,7 @@ derive_more = { version = "0.99.17", default-features = false }
 codec = { package = "parity-scale-codec", version = "3.2.2", default-features = false, features = ["derive", "full", "bit-vec"] }
 scale-info = { version = "2.5.0", features = ["bit-vec"] }
 reqwest = { version = "0.11", features = ["json"] }
-sugarfunge-api-types = { git = "https://github.com/functionland/sugarfunge-api.git", rev = "242dccf9da3982fa0a42c613477614adc7675641" }
+sugarfunge-api-types = { git = "https://github.com/functionland/sugarfunge-api.git", rev = "28d9a0da16add1b65942d5e344d8782719360029" }
 
 [dependencies.subxt]
 git = "https://github.com/SugarFunge/subxt.git"
